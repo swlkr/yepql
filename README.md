@@ -16,7 +16,7 @@ $ npm i -S yepql
 
 ## Use
 ```sql
--- get_users_by_id.sql
+-- get-users-by-id.sql
 
 select *
 from Users
