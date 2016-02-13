@@ -1,0 +1,16 @@
+{
+  "name": "yepsql",
+  "version": "1.0.0",
+  "description": "A better way forward with javascript and sql",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yepsql",
+    "yesql",
+    "sql"
+  ],
+  "author": "Sean Walker",
+  "license": "MIT"
+}
