@@ -26,7 +26,7 @@ function makeQueries(dir) {
   .map((filename) => {
     var parts = path.parse(filename);
     return {
-      parts.name,
+      name: parts.name,
       absolutePath: path.join(dir, filename)
     };
   })
