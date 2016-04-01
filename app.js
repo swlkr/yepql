@@ -23,6 +23,7 @@ function makeQuery(file) {
 function makeQueries(dir) {
   var queryArray = fs
   .readdirSync(dir)
+  .filter(f => f.endsWith(".sql"))
   .map((filename) => {
     var parts = path.parse(filename);
     return {
