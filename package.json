@@ -1,7 +1,7 @@
 {
   "name": "yepql",
-  "version": "1.0.2",
-  "description": "Javascript & SQL Server rethought",
+  "version": "2.0.0",
+  "description": "Javascript & SQL rethought",
   "engines": {
     "node": "4.x"
   },
@@ -15,8 +15,5 @@
     "sql"
   ],
   "author": "Sean Walker",
-  "license": "MIT",
-  "dependencies": {
-    "mssql": "^3.0.1"
-  }
+  "license": "MIT"
 }

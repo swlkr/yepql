@@ -2,12 +2,12 @@ var fs       = require("fs");
 var path     = require("path");
 var database = require("./database");
 
-function makeQuery(file) {
+function makeQuery(driver, file) {
   var query = fs.readFileSync(file, "utf8");
 
   return function(connectionString, parameters) {
     return new Promise((resolve, reject) => {
-      database.query(connectionString, query, parameters, (error, rows) => {
+      database.query(driver, connectionString, query, parameters, (error, rows) => {
         if(error) {
           reject(error);
         } else {
@@ -20,7 +20,7 @@ function makeQuery(file) {
   return func;
 }
 
-function makeQueries(dir) {
+function makeQueries(driver, dir) {
   var queryArray = fs
   .readdirSync(dir)
   .filter(f => f.endsWith(".sql"))
@@ -34,7 +34,7 @@ function makeQueries(dir) {
   .map((file) => {
     var obj = {};
 
-    obj[file.name] = makeQuery(file.absolutePath);
+    obj[file.name] = makeQuery(driver, file.absolutePath);
 
     return obj;
   });
@@ -42,4 +42,9 @@ function makeQueries(dir) {
   return Object.assign.apply(Object, queryArray);
 }
 
-module.exports = { makeQuery, makeQueries }
+module.exports = function(driver) {
+  return {
+    makeQuery: makeQuery.bind(this, driver),
+    makeQueries: makeQueries.bind(this, driver)
+  };
+}

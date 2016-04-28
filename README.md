@@ -1,18 +1,24 @@
-# yepql - Javascript & SQL Server rethought
+# yepql - Javascript & SQL rethought
 
-Yepql is a javascript library for _using_ TSQL.
+Yepql is a javascript library for _using_ SQL.
 
 It is __heavily__ inspired by [yesql](https://github.com/krisajenkins/yesql)
-
-## Dependencies
-
-- [mssql](https://github.com/patriksimek/node-mssql)
 
 ## Install
 
 ```bash
 $ npm i -S yepql
 ```
+
+## Driver
+
+You'll need a database driver
+
+|Database|`npm install --save` package|
+|---|---|
+|PostgreSQL|pg|
+|SQL Server|mssql|
+
 
 ## Use
 ```sql
@@ -33,20 +39,18 @@ module.exports = { getUsersByID };
 ```
 
 ```javascript
-// config.js
-var config = {};
-
-config.connectionString = process.env.CONNECTION_STRING ||  "Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true";
-
-module.exports = config;
+// env.js
+module.exports = {
+  connectionString: process.env.CONNECTION_STRING || "Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true";
+}
 ```
 
 ```javascript
 var db = require("./db");
-var config = require("./config");
+var env = require("./env");
 
 db
-.getUsersByID(config.connectionString, { ID: 1 })
+.getUsersByID(env.connectionString, { ID: 1 })
 .then((rows) => {
   /*
     rows === [{
