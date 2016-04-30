@@ -16,8 +16,6 @@ function makeQuery(driver, file) {
       });
     });
   }
-
-  return func;
 }
 
 function makeQueries(driver, dir) {
