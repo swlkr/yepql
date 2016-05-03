@@ -31,7 +31,8 @@ where Users.ID = @ID
 
 ```javascript
 // db.js
-var yepql = require("yepql");
+var mssql = require("mssql");
+var yepql = require("yepql")(mssql);
 
 var getUsersByID = yepql.makeQuery("./get-users-by-id.sql");
 
