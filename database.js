@@ -3,7 +3,7 @@ function deriveDatabase(connectionString) {
     return null;
   }
 
-  if(connectionString.indexOf("postgres://")) {
+  if(connectionString.indexOf("postgres://") !== -1) {
     return "pg";
   }
 
