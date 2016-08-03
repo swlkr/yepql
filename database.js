@@ -1,15 +1,17 @@
-function deriveDatabase(connectionString) {
-  if(!connectionString) {
+function deriveDatabase(driver) {
+  if(!driver) {
     return null;
   }
 
-  if(connectionString.indexOf("postgres://") !== -1) {
-    return "pg";
-  }
+  var keys = Object.keys(driver);
 
-  if(connectionString.indexOf("Database=") !== -1 || connectionString.indexOf("mssql://") !== -1) {
+  // Figure out a better way to determine which
+  // database is being called
+  if(keys.indexOf("DRIVERS") !== -1) {
     return "mssql";
   }
+
+  return "pg";
 }
 
 function mssqlQuery(mssql, connectionString, query, params, callback) {
@@ -57,7 +59,7 @@ function pgQuery(pg, connectionString, query, params, callback) {
 
 module.exports = {
   query(driver, connectionString, query, params, callback) {
-    var db = deriveDatabase(connectionString);
+    var db = deriveDatabase(driver);
 
     switch(db) {
       case "mssql":
