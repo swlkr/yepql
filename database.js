@@ -15,10 +15,10 @@ function deriveDatabase(driver) {
 }
 
 function mssqlQuery(mssql, connectionString, query, params, callback) {
-  var connection = new mssql.Connection(connectionString, (connectionError) => {
-    if(connectionError) {
-      mssql.close();
-      callback(connectionError, []);
+  var connection = new mssql.Connection(connectionString, (error) => {
+    if(error) {
+      connection.close();
+      callback(error, []);
       return;
     }
 
@@ -26,11 +26,24 @@ function mssqlQuery(mssql, connectionString, query, params, callback) {
 
     // Attach the input params to the request
     for(var key in params) {
-      request.input(key, params[key]);
+      var value = params[key];
+
+      // TODO Move query prep to separate pure function
+      if(Array.isArray(value)) {
+        for(var i = 0; i !== value.length; i++) {
+          request.input(key + i, value[i]);
+        }
+
+        var newKey = value.map((v, i) => "@" + key + i).join(",");
+        query = query.replace("@" + key, newKey);
+      } else {
+        request.input(key, value);
+      }
     }
 
     request.query(query, (queryError, rows) => {
       callback(queryError, rows || []);
+      connection.close();
     });
   });
 
