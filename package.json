@@ -1,10 +1,7 @@
 {
   "name": "yepql",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Javascript & SQL rethought",
-  "engines": {
-    "node": ">=4.0.0"
-  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

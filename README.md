@@ -7,7 +7,7 @@ It is __heavily__ inspired by [yesql](https://github.com/krisajenkins/yesql)
 ## Install
 
 ```bash
-$ npm i -S yepql
+$ yarn add yepql
 ```
 
 ## Driver
